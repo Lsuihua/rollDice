@@ -11,4 +11,6 @@ ul,ol{
 .main{
     min-height: 100vh;
     background: #f44336;
+    width: 100%;
+    overflow: hidden;
 }
