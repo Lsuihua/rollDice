@@ -31,6 +31,8 @@
     }
 
     RollDice.prototype.setAngle = function(point){
+        // 点数随机一个角度值
+
         switch(point){
             case 1:
                 break;
@@ -55,16 +57,37 @@
 
         /**
          * 骰子点数的角度
-         * 1 ===>   { x: TAU/8,z: TAU/8,y:0}
-         * 2 ===>   { x: TAU/8,z: TAU/8,y:0}
-         * 3 ===>   { x: TAU/8,z: TAU/8,y:0}
-         * 4 ===>   { x: TAU/8,z: TAU/8,y:0}
-         * 5 ===>   { x: -TAU/8,z:0,y:TAU/8}
-         * 6 ===>   { x: TAU/8,z: TAU/8,y:0}
+         * 1 ===>  [
+         *            {x:TAU/8,z:TAU/8}         <2,3>
+         *            {x:TAU/8,z:TAU * 3/8}     <3,5>
+         *            {x:TAU/8,z:TAU * 5/8}     <4,5>
+         *            {x:TAU/8,z:TAU * 7/8}     <2,4>
+         *         ]✔
+         * 2 ===>  [
+         *            {x:TAU * 3/8,y:TAU/8,z:0}      <4,6>
+         *            {x:TAU * 3/8,y:TAU* 3/8,z:0}   <1,4>
+         *            {x:TAU * 3/8,y:TAU* 5/8,z:0}   <1,3>
+         *            {x:TAU * 3/8,y:TAU* 7/8,z:0}   <3,6>
+         *         ] ✔
+         * 3 ===>  [
+         *            {y:TAU/4}
+         *         ] ✔
+         * 4 ===>  [
+         *            {y:-TAU/4}
+         *         ]  ✔
+         * 5 ===>  [
+         *          {x: -TAU/8,y:TAU/8,z:0}     <1,3>
+         *          {x: -TAU/8,y:TAU* 3/8,z:0}  <4,3>
+         *          {x: -TAU/8,y:TAU* 5/8,z:0}  <4,6>
+         *          {x: -TAU/8,y:TAU* 7/8,z:0}  <4,1>
+         *         ]  ✔
+         * 6 ===>  [
+         *          {x:TAU* 5/8,z:TAU *5/8}     <2,3>
+         *          {x:TAU * 5/8,y:0,z:TAU/8}   <4,5>
+         *          {x:TAU* 5/8,z:TAU *7/8}     <3,5>
+         *          {x:TAU* 5/8,z:TAU *3/8}     <2,4>
+         *         ]  ✔
          **/
-        
-
-        console.log("画骰子")
         // 创建班级
         const illo = new Illustration({
             element: '.zdog-rolldice',
@@ -73,7 +96,7 @@
         // 创建描点
         const dice = new Anchor({
             addTo: illo,
-            rotate:{x:TAU/8}
+            rotate:{x:TAU * 1/8,y:TAU/4,z:TAU/8}
         });
         // 创建面组
         const faces = new Group({
