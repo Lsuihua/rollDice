@@ -8,7 +8,52 @@
 </head>
 <body>
     <div class="main">
-        <canvas id="RollDice" class="zdog-rolldice"></canvas>
+        <!-- 头部用户信息 -->
+        <div class="top-info">
+            <!-- left -->
+            <div class="left">
+                <div class="user left-item">
+                    <img src="./static/imgs/logo.jpg" class="logo">
+                    <div class="user-info">
+                        <div class="name left-item text-cut">我爱吃辣条啊</div>
+                        <div class="integral left-item text-cut">积分：80</div>
+                    </div>
+                </div>
+            </div>
+            <!-- right -->
+            <div class="right">
+                <div class="right-item">当前关卡：XXX关卡</div>
+                <div class="right-item">下一关：XXX关卡</div>
+            </div>
+        </div>
+        <!-- 附加显示 -->
+        <ol class="attach-view">
+            <li class="rule attach-item">规则</li>
+            <li class="dice attach-item">骰子</li>
+        </ol>
+        
+        <!-- 规则弹窗 -->
+        <div class="dialog">
+            <div class="dialog-box">
+                <div class="dialog-hd">
+
+                </div>
+                <div class="dialog-content"></div>
+                <div class="dialog-footer"></div>
+            </div>
+        </div>
+
+        <!-- 地图内容 -->
+        <div class="map-box">
+            <canvas class="map" id="map"></canvas>
+        </div>
+
+        <!-- 骰子内容 -->
+        <div class="dice-box">
+            <canvas id="RollDice" class="zdog-rolldice"></canvas>
+            <div class="dice-btn">投一次</div>
+        </div>
+        
     </div>
     <script src="https://unpkg.com/zdog@1/dist/zdog.dist.min.js"></script>
     <script src="./main.js"></script>
