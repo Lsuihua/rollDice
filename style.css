@@ -32,6 +32,47 @@ ul,ol{
     box-sizing: border-box;
 }
 
+/* 加载动画 */
+.open-load{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #eee;
+    z-index: 10;
+}
+
+.open-load .progress-box{
+    text-align: center;
+    position: absolute;
+    left: 50%;
+    bottom: 15%;
+    width: 70%;
+    transform: translateX(-50%);
+}
+
+.open-load .progress-box .progress{
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(to bottom, rgba(0,0,0,.5), rgba(0,0,0,.2), rgba(0,0,0,.5));
+    position: relative;
+    margin-bottom: 10px;
+    border-radius: 50px;
+    overflow: hidden;
+}
+.open-load .progress-box .progress .value{
+    position: absolute;
+    width:0%;
+    height: 100%;
+    background: linear-gradient(to bottom, #E91E63, #FF5722, #E91E63);
+    left: 0;
+    top: 0;
+    transition: width .3s linear;
+}
+
+.open-load .progress-box .load-down-num{
+    color: #2196F3;
+}
+
 .top-info{
     display: flex;
     justify-content: space-between;
@@ -111,9 +152,7 @@ ul,ol{
     z-index: 5;
     top: 0;
     left: 0;
-}
-.dice-box>.zdog-rolldice{
-
+    display: none;
 }
 .dice-box>.dice-btn{
     position: absolute;
@@ -132,4 +171,84 @@ ul,ol{
 }
 .dice-box>.dice-btn.active{
     box-shadow: 0 0px 0px rgba(0,0,0,.8);
+}
+
+/* 规则显示 */
+.dialog{
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    z-index: 5;
+    display: none;
+}
+.dialog>.dialog-box{
+    background: #fff;
+    position: absolute;
+    min-height: 20vh;
+    max-height: 80vh;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border-radius: 10px;
+    width: 80%;
+    border: 1px solid rgb(179, 179, 179);
+    box-sizing: border-box;
+    padding:40px 12px;
+    box-shadow: 4px 6px 4px rgba(255,255,255,.3);
+}
+
+.dialog>.dialog-box .hd{
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    top: 0;
+    left: 0;
+    font-size: 18px;
+    text-align: center;
+}
+.dialog>.dialog-box .content{
+    height: 100%;
+    font-size: 14px;
+    color: #545454;
+}
+.dialog>.dialog-box .footer{
+    padding:0 14px;
+    box-sizing: border-box;
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    justify-content:space-evenly;
+}
+.dialog>.dialog-box .footer>.btn{
+    height: 30px;
+    width: 100%;
+    border-radius:6px;
+    border: none;
+    box-shadow: 0px 2px 2px rgba(0,0,0,.5);
+    outline-color: transparent;
+}
+
+.dialog>.dialog-box .footer>.btn:not(:last-child){
+    margin-right: 14px;
+}
+
+.dialog>.dialog-box .close{
+    position: absolute;
+    bottom: 0;
+    font-size: 20px;
+    left: 50%;
+    transform: translate(-50%,80px);
+    text-align: center;
+    line-height: 36px;
+    box-sizing: border-box;
+    border: 1px solid #eee;
+    color: #eee;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
 }

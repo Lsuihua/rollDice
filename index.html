@@ -4,10 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>掷骰子</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
     <div class="main">
+        <!-- 加载资源动画 -->
+        <div class="open-load animate__animated">
+            <div class="banner"></div>
+            <div class="progress-box">
+                <div class="progress">
+                    <div class="value"></div>
+                </div>
+                <!-- 加载数量提示 -->
+                <div class="load-down-num">加载中...</div>
+            </div>
+        </div>
+
         <!-- 头部用户信息 -->
         <div class="top-info">
             <!-- left -->
@@ -33,13 +46,17 @@
         </ol>
         
         <!-- 规则弹窗 -->
-        <div class="dialog">
+        <div class="dialog animate__animated">
             <div class="dialog-box">
-                <div class="dialog-hd">
-
+                <div class="hd">弹窗标题</div>
+                <div class="content">
+                    打瞌睡的金卡角度看拉家带口洒家打开拉萨
                 </div>
-                <div class="dialog-content"></div>
-                <div class="dialog-footer"></div>
+                <div class="footer">
+                    <button class="btn btn1">按钮1</button>
+                    <button class="btn btn2">按钮2</button>
+                </div>
+                <span class="close">×</span>
             </div>
         </div>
 
@@ -49,17 +66,20 @@
         </div>
 
         <!-- 骰子内容 -->
-        <div class="dice-box">
+        <div class="dice-box animate__animated">
             <canvas id="RollDice" class="zdog-rolldice"></canvas>
             <div class="dice-btn">投一次</div>
         </div>
         
     </div>
     <script src="https://unpkg.com/zdog@1/dist/zdog.dist.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+    <script src="./game.js"></script>
+    <script src="./map.js"></script>
+    <script src="./rollDice.js"></script>
     <script src="./main.js"></script>
     <script>
-        var rollDice = new RollDice({"canvasId":'RollDice'});
-
+        var Game = new Game();
     </script>
 </body>
 </html>
