@@ -20,4 +20,31 @@ $(()=>{
           }
       })
   }
+
+  // 地图放大缩小
+  $('.zoom-control').on('click','.zoom-up',function(){
+    if(Game.map.scale >= Game.map.maxScale){
+        return $(this).addClass('disabled');
+    };
+    if($(this).hasClass('disabled')){
+        $(this).removeClass('disabled')
+    }
+    if($('.zoom-down').hasClass('disabled')){
+        $('.zoom-down').removeClass('disabled')
+    }
+    Game.map.scale += 0.1;
+    Game.map.zoom()
+  }).on('click','.zoom-down',function(){
+    if(Game.map.scale <= Game.map.minScale){
+        return $(this).addClass('disabled')
+    };
+    if($(this).hasClass('disabled')){
+        $(this).removeClass('disabled')
+    }
+    if($('.zoom-up').hasClass('disabled')){
+        $('.zoom-up').removeClass('disabled')
+    }
+    Game.map.scale -= 0.1;
+    Game.map.zoom()
+  })
 })

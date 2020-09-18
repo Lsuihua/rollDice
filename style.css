@@ -83,6 +83,7 @@ ul,ol{
     box-sizing: border-box;
     z-index: 9;
     color: #fff;
+    background: linear-gradient(0deg, rgb(103 103 103 / 0), rgb(57 56 56 / 80%));
 }
 .top-info>.left{
     text-align: left;
@@ -143,6 +144,32 @@ ul,ol{
     margin-bottom: 12px;
 }
 
+/* 放大缩小控件 */
+.zoom-control{
+    position: fixed;
+    z-index: 9;
+    right: 14px;
+    bottom: 50px;
+}
+.zoom-control>li{
+    width: 34px;
+    height: 34px;
+    border-radius: 5px;
+    border: 1px solid #adadad;
+    background: #fff;
+    color: #3f51b5;
+    text-align: center;
+    box-sizing: border-box;
+    line-height: 34px;
+    font-size: 18px;
+}
+.zoom-control>li.disabled{
+    background:#d4d4d4;
+    color: #777;
+}
+.zoom-control>li:not(:last-child){
+    margin-bottom: 14px;
+}
 
 /* 摇骰子内容 */
 .dice-box{
@@ -251,4 +278,13 @@ ul,ol{
     border-radius: 50%;
     width: 36px;
     height: 36px;
+}
+
+/* 地图区域 */
+.map-box{
+    position: relative;
+}
+.map-box>.map{
+    position: absolute;
+    transition: all .1s ease-in-out;
 }

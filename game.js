@@ -14,20 +14,55 @@
      * 判断用户是否登录
      * 小程序跳转
      */
-    //游戏关卡
+    
     this.ready = false;
     this.R = {};
     this.loadDownNumber = 0;
-
+    //游戏关卡
     this.levels = [
-
+      {
+        "name":"关卡一",
+        "key":1,
+        "X":200,
+        "Y":200
+      },
+      {
+        "name":"关卡2",
+        "key":2,
+        "X":100,
+        "Y":800
+      },
+      {
+        "name":"关卡3",
+        "key":3,
+        "X":1000,
+        "Y":800
+      },
+      {
+        "name":"关卡4",
+        "key":4,
+        "X":1800,
+        "Y":1800
+      },
+      {
+        "name":"关卡5",
+        "key":5,
+        "X":1000,
+        "Y":1200
+      }
     ],
+    // 关卡路径
+    this.levelsPath = [];
+
     // 当前关卡 | 目标关卡
-    this.currentLevels = null;
-    this.targetLevels = null;
+    this.currentLevel = this.levels[0];
+    this.targetLevel = this.levels[4];
 
     // 游戏步数
     this.steps = 0;
+
+    // 屏幕视口
+    this.screen = document.querySelector('.main');
 
     this.init();
 
@@ -38,7 +73,6 @@
   }
 
   Game.prototype.init = function(){
-
   }
 
   Game.prototype.loadData = function(){
@@ -68,6 +102,27 @@
       })
     })
   }
+  // 屏幕拖动
+  Game.prototype.watchScreenDrap = function(){
+    var self = this;
+    var startX = startY = endX = endY = 0;
+    // 阻力系数
+    var obstruction = 0.7;
+    window.addEventListener('touchstart',function(event){
+      var touch = event.targetTouches[0];
+      //滑动起点的坐标
+      startX = touch.pageX;
+      startY = touch.pageY;
+    },false);
+    window.addEventListener('touchmove',function(event){
+      var touch = event.targetTouches[0];
+      endX = touch.pageX;
+      endY = touch.pageY;
+      var disX = (endX - startX) * obstruction,
+          disY = (endY - startY) * obstruction;
+      self.map.move(disX,disY,'drag');
+    },false)
+  }
 
   Game.prototype.updated = function(){
 
@@ -80,5 +135,7 @@
 
     // 实例化骰子
     this.rollDice = new RollDice({"canvasId":'RollDice'});
+
+    this.watchScreenDrap();
   }
 })()
