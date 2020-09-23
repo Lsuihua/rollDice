@@ -3,11 +3,11 @@ $(()=>{
   anmateInOut('.attach-view .dice','.dice-box','animate__zoomInDown','animate__zoomOut');
 
   // 规则开关
-  anmateInOut('.attach-view .rule,.dialog .close ','.dialog','animate__bounceInDown','animate__bounceOutUp');
+  anmateInOut('.attach-view .rule,.prop .close ','.prop','animate__bounceInDown','animate__bounceOutUp');
 
   // 封装一个公告弹窗动画
   function anmateInOut(control,targetBox,inClass,outClass){
-      //控制开关 | 目标盒子 | 显示动画 | 关闭动画
+      //控制开关 | 目标盒子 | 显示动画 | 关闭动画  |  弹窗类型
       $(control).click(function(){
           if($(targetBox).hasClass(inClass)){
               $(targetBox).removeClass(inClass).addClass(outClass)
@@ -47,4 +47,16 @@ $(()=>{
     Game.map.scale -= 0.1;
     Game.map.zoom()
   })
+
+    //楼层切换
+    $('.floot-box').on('click','.floot-item',function(){
+        let mapId = $(this)[0].innerHTML;
+        $('.floot-content').toggleClass('active');
+        $('.floot-show').html(mapId);
+        // 地图切换
+        Game.floot = mapId;
+        Game.initMap('map-'+mapId);
+    }) .on('click','.floot-show',function(){
+        $('.floot-content').toggleClass('active')
+    })
 })

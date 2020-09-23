@@ -51,24 +51,72 @@
             <li class="zoom-down">-</li>
         </ol>
 
-        <!-- 规则弹窗 -->
-        <div class="dialog animate__animated">
-            <div class="dialog-box">
+        <!-- 当前楼层 -->
+        <div class="floot-box">
+            <div class="floot-show">B1</div>
+            <ol class="floot-content">
+                <li class="floot-item">B1</li>
+                <li class="floot-item">B2</li>
+            </ol>
+        </div>
+
+        <!-- 规则 -->
+        <div class="prop animate__animated">
+            <div class="prop-box">
                 <div class="hd">弹窗标题</div>
                 <div class="content">
                     打瞌睡的金卡角度看拉家带口洒家打开拉萨
-                </div>
-                <div class="footer">
-                    <button class="btn btn1">按钮1</button>
-                    <button class="btn btn2">按钮2</button>
                 </div>
                 <span class="close">×</span>
             </div>
         </div>
 
+        <!-- 弹窗 -->
+        <div class="dialog animate__animated">
+            <!-- 积分 -->
+            <div class="dialog-box integral">
+                <div class="content">
+                    <div class="body">
+                        <img class="gold" src="./static/imgs/gold.png">
+                        <div class="title"><span class="text">任务达成</span> +<span class="value">20</span> 积分</div>
+                        <div class="spec">积分可用于夺宝大赛</div>
+                    </div>
+                </div>
+                <div class="footer">
+                    <span class="detail">积分可在我的积分中查看</span>
+                    <div class="btn submit">知道了</div>
+                </div>
+            </div> 
+            <!-- 确认提示 -->
+            <div class="dialog-box confirm">
+                <div class="hd">系统提示</div>
+                <span class="close">×</span>
+                <div class="content">
+                    的骄傲还是觉得哈设计开发哈接口返回空间
+                </div>
+                <div class="footer">
+                    <div class="btn cf">确认</div>
+                    <div class="btn cc">取消</div>
+                </div>
+            </div>
+            <!-- 提示 -->
+            <div class="dialog-box alert">
+                <div class="hd">系统提示</div>
+                <span class="close">×</span>
+                <div class="content">
+                    的骄傲还是觉得哈设计开发哈接口返回空间
+                </div>
+                <div class="footer">
+                    <div class="btn cc">确认</div>
+                </div>
+            </div>
+            
+        </div>
+
         <!-- 地图内容 -->
         <div class="map-box">
-            <canvas class="map" id="map"></canvas>
+            <canvas class="map" id="map-B2"></canvas>
+            <canvas class="map" id="map-B1"></canvas>
         </div>
 
         <!-- 骰子内容 -->
@@ -86,6 +134,28 @@
     <script src="./main.js"></script>
     <script>
         var Game = new Game();
+        // Game.dialog({
+        //     "type":"integral",
+        //     "data":{
+        //         integral:20,
+        //         detail:'积分可用于夺宝大赛'
+        //     }
+        // })
+        
+        Game.init(res => {
+            console.log(res)
+        })
+
+        Game.dialog({
+            "type":"confirm",
+            "title":"通关提示",
+            "detail":"什么一些乱七八糟得东西提示"
+        })
+        // Game.dialog({
+        //     "type":"alert",
+        //     "title":"通关提示",
+        //     "detail":"什么一些乱七八糟得东西提示"
+        // })
     </script>
 </body>
 </html>

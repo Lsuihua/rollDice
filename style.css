@@ -129,15 +129,17 @@ ul,ol{
     position: absolute;
     z-index: 9;
     top: 100px;
-    left: 14px;
+    right: 14px;
 }
 .attach-view>.attach-item{
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    background: radial-gradient(rgba(255,255,255,.9),rgba(255,255,255,.1));
+    font-size: 12px;
+    width: 36px;
+    height: 36px;
+    /* background: radial-gradient(rgba(255,255,255,.9),rgba(255,255,255,.1)); */
+    background-color: #fff;
     text-align: center;
-    line-height: 40px;
+    line-height: 36px;
     box-shadow: 0 0 4px rgba(255,255,255,.8);
 }
 .attach-view>.attach-item:not(:last-child){
@@ -171,6 +173,48 @@ ul,ol{
     margin-bottom: 14px;
 }
 
+/* 楼层切换控件 */
+.floot-box{
+    position: fixed;
+    left: 14px;
+    top:100px;
+    z-index: 9;
+}
+.floot-box>.floot-show{
+    width: 34px;
+    height: 34px;
+    border-radius: 5px;
+    border: 1px solid #adadad;
+    background: #fff;
+    color: #3f51b5;
+    text-align: center;
+    box-sizing: border-box;
+    line-height: 34px;
+    font-size: 18px;
+}
+.floot-box>.floot-content{
+    margin-top: 4px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    height: 0px;
+    transition: height .2s linear;
+    overflow: hidden;
+}
+.floot-box>.floot-content.active{
+    height: 68px;
+}
+.floot-box .floot-item {
+    width: 34px;
+    height: 34px;
+    border: 1px solid #adadad;
+    background: #fff;
+    color: #3f51b5;
+    text-align: center;
+    box-sizing: border-box;
+    line-height: 34px;
+    font-size: 16px;
+}
+
 /* 摇骰子内容 */
 .dice-box{
     position: absolute;
@@ -201,30 +245,30 @@ ul,ol{
 }
 
 /* 规则显示 */
-.dialog{
+.prop,.dialog{
     position: absolute;
     width: 100%;
     height: 100vh;
-    z-index: 5;
+    z-index: 10;
     display: none;
 }
-.dialog>.dialog-box{
+.prop>.prop-box,.dialog>.dialog-box{
     background: #fff;
     position: absolute;
-    min-height: 20vh;
+    min-height: 80px;
     max-height: 80vh;
-    top: 50%;
+    top: 45%;
     left: 50%;
     transform: translate(-50%,-50%);
     border-radius: 10px;
     width: 80%;
     border: 1px solid rgb(179, 179, 179);
     box-sizing: border-box;
-    padding:40px 12px;
+    padding:40px 12px 12px;
     box-shadow: 4px 6px 4px rgba(255,255,255,.3);
 }
 
-.dialog>.dialog-box .hd{
+.prop>.prop-box .hd{
     position: absolute;
     width: 100%;
     height: 40px;
@@ -234,50 +278,199 @@ ul,ol{
     font-size: 18px;
     text-align: center;
 }
-.dialog>.dialog-box .content{
+.prop>.prop-box .content{
     height: 100%;
     font-size: 14px;
     color: #545454;
 }
-.dialog>.dialog-box .footer{
-    padding:0 14px;
-    box-sizing: border-box;
+
+.prop>.prop-box .close,.dialog .close{
     position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 18px;
+    text-align: center;
+    line-height: 32px;
+    color: #7a7a7a;
+    width: 32px;
+    height: 32px;
+}
+
+/* 弹窗提示 */
+.dialog-box.confirm,.dialog-box.alert{
+    padding-bottom: 50px;
+}
+.dialog-box.confirm .hd,.dialog-box.alert .hd{
+    position: absolute;
+    top: 0;
     width: 100%;
     height: 40px;
     line-height: 40px;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    justify-content:space-evenly;
-}
-.dialog>.dialog-box .footer>.btn{
-    height: 30px;
-    width: 100%;
-    border-radius:6px;
-    border: none;
-    box-shadow: 0px 2px 2px rgba(0,0,0,.5);
-    outline-color: transparent;
-}
-
-.dialog>.dialog-box .footer>.btn:not(:last-child){
-    margin-right: 14px;
-}
-
-.dialog>.dialog-box .close{
-    position: absolute;
-    bottom: 0;
-    font-size: 20px;
-    left: 50%;
-    transform: translate(-50%,80px);
     text-align: center;
-    line-height: 36px;
+    left: 0;
+    font-size: 18px;
+}
+
+.dialog-box.confirm .content,.dialog-box.alert .content{
+    font-size: 15px;
+    padding:10px 10px;
     box-sizing: border-box;
-    border: 1px solid #eee;
-    color: #eee;
+    color: #575757;
+}
+
+.dialog-box.confirm .footer,.dialog-box.alert .footer{
+    position: absolute;
+    left: 0;
+    bottom:4px;
+    height: 46px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding:0 20px;
+    box-sizing: border-box;
+}
+.dialog-box.confirm .footer .btn,.dialog-box.alert .footer .btn{
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    background: burlywood;
+    border-radius: 20px;
+    padding:6px 10px;
+    box-shadow: 0 2px 2px rgba(0,0,0,.2);
+}
+
+.dialog-box.confirm .footer .btn:not(:last-child){
+    margin-right: 20px;
+}
+
+/* 积分 */
+.dialog-box.integral{
+    padding: 0;
+    background: transparent;
+    border: unset;
+    box-shadow: unset;
+}
+.dialog .dialog-box.integral .content{
+    text-align: center;
+    background: #0059e1;
+    position: relative;
+    height: 200px;
+    border-radius: 20px 20px 0 0;
+}
+
+.dialog .dialog-box.integral .content::before,.dialog .dialog-box.integral .content::after{
+    content: '';
+    display: block;
+    height:34%;
+    width: 10%;
+    position: absolute;
+    top: 0;
+    transform: translate(-19%,-44%);
+    right: 0;
+    z-index: 8;
+}
+
+.dialog .dialog-box.integral .content::after{
+    background: #eee;
+    right: 0;
     border-radius: 50%;
-    width: 36px;
-    height: 36px;
+}
+.dialog .dialog-box.integral .content::before{
+    background: #fff;
+    transform: translate(-65%, -44.4%);
+}
+
+.dialog .dialog-box.integral .content .body{
+    padding: 20px 10px;
+    box-sizing: border-box;
+    background: #fff;
+    width: 76%;
+    position: absolute;
+    height: 115%;
+    left: 12%;
+    border-radius: 40px 0 0 0;
+    bottom: 0;
+}
+.dialog .dialog-box.integral .content .body::before{
+    right: 0;
+    height: 86.5%;
+    content: '';
+    width: 14%;
+    background:#0059e1;
+    display: block;
+    position: absolute;
+    transform: translateX(100%);
+    bottom: 0;
+    z-index: 9;
+    border-radius: 0 10px 0 0;
+}
+.dialog .dialog-box.integral .content .body .title{
+    font-size: 18px;
+}
+.dialog .dialog-box.integral .content .body .value{
+    font-size: 24px;
+    color: #FFC107;
+}
+.dialog .dialog-box.integral .content .body .spec{
+    margin: 20px 0;
+    color: #656565;
+}
+.dialog .dialog-box.integral .footer{
+    text-align: center;
+    background: #007dfe;
+    border: 4px solid #46a0fe;
+    border-radius: 0 0 40px 40px;
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.dialog .dialog-box.integral .footer::before,.dialog .dialog-box.integral .footer::after{
+    content: '';
+    display: block;
+    top: 0;
+    background: #fff;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    border-radius: 50%;
+    left: 50%;
+    transform: translate(-50%,-60%);
+}
+.dialog .dialog-box.integral .footer::before{
+    border: 4px solid #46a0fe;
+    border-radius: 50%;
+    transform: translate(-50%,-60%);
+}
+.dialog .dialog-box.integral .footer::after{
+    transform: translate(-50%,-110%);
+    width: 100px;
+}
+.dialog .dialog-box.integral .footer .btn{
+    background: #ffc900;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    color: #fff;
+    font-size: 16px;
+    margin-top: 14px;
+    box-shadow: 0px 2px 2px rgba(0,0,0,.2);
+}
+.dialog .dialog-box.integral .footer .detail{
+    font-size: 14px;
+    color: #dadada;
+}
+
+
+/* 积分 */
+.integral .ribbon{
+    position: absolute;
+    width: 100%;
+}
+.integral .content .gold{
+    width: 50%;
+    margin-bottom: 20px;
 }
 
 /* 地图区域 */
@@ -287,4 +480,6 @@ ul,ol{
 .map-box>.map{
     position: absolute;
     transition: all .1s ease-in-out;
+    top: 0;
+    left: 0;
 }

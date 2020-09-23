@@ -14,7 +14,8 @@
      * 判断用户是否登录
      * 小程序跳转
      */
-    
+    this.integral = 0;
+
     this.ready = false;
     this.R = {};
     this.loadDownNumber = 0;
@@ -24,31 +25,36 @@
         "name":"关卡一",
         "key":1,
         "X":200,
-        "Y":200
+        "Y":200,
+        "floot":'b1'
       },
       {
         "name":"关卡2",
         "key":2,
         "X":100,
-        "Y":800
+        "Y":800,
+        "floot":'b1'
       },
       {
         "name":"关卡3",
         "key":3,
         "X":1000,
-        "Y":800
+        "Y":800,
+        "floot":'b1'
       },
       {
         "name":"关卡4",
         "key":4,
         "X":1800,
-        "Y":1800
+        "Y":1800,
+        "floot":'b1'
       },
       {
         "name":"关卡5",
         "key":5,
         "X":1000,
-        "Y":1200
+        "Y":1200,
+        "floot":'b1'
       }
     ],
     // 关卡路径
@@ -60,6 +66,7 @@
 
     // 游戏步数
     this.steps = 0;
+    this.floot = 'B1'
 
     // 屏幕视口
     this.screen = document.querySelector('.main');
@@ -69,10 +76,22 @@
     this.loadData().then(res => {
       this.start();
     })
-
   }
 
   Game.prototype.init = function(){
+    //获取点位信息
+    // 渲染地图
+    return new Promise((resolve,reject) => {
+      if(this.floot == 'B1'){
+        $('#map-B1').addClass('show')
+        $('#map-B2').removeClass('show')
+      }else if(this.floot == 'B2'){
+        $('#map-B1').removeClass('show')
+        $('#map-B2').addClass('show')
+      }
+      resolve(true)
+    })
+
   }
 
   Game.prototype.loadData = function(){
@@ -124,15 +143,60 @@
     },false)
   }
 
+
+  // 弹窗
+  Game.prototype.dialog = function(data){
+    const self = this;
+    const closeDia = function(){
+      $('.dialog').removeClass('animate__zoomIn').addClass('animate__zoomOut')
+      var gt = setTimeout(function(){
+        $('.dialog').css({"display":"none"})
+      },300)
+    };
+    $('.dialog').css({"display":"block"}).addClass('animate__zoomIn');
+    $('.dialog .'+data.type).show().siblings().hide();
+    // 积分类型
+    if(data.type == 'integral'){  
+      $('.content .title .value').html(data.data.integral);
+      $('.content .spec').html(data.data.detail);
+    }else if(data.type == 'confirm' || data.type == 'alert'){
+      $('.dialog-box .hd').html(data.title);
+      $('.dialog-box .content').html(data.detail);
+      $('.dialog').on('click','.cf',function(){
+        console.log("去做什么 ==>  关闭弹窗")
+        // 去下一关
+        self.map.location(self.targetLevel);
+        // 获取积分
+        closeDia();
+      })
+    }else if(data.type == 'alert'){
+      $('.dialog').on('click','.cf',function(){
+        console.log("去做什么 ==>  关闭弹窗")
+        // 去登陆
+        closeDia();
+      })
+    }
+
+    // 关闭
+    $('.dialog').on('click','.close,.submit,.cc',function(){
+      closeDia()
+    })
+  }
+
+  Game.prototype.initMap = function(floot){
+     // 实例化地图
+     this.map = new Map({"canvasId":floot});
+    //  控制地图显示
+    $('#'+floot).show().siblings().hide();
+  }
+
   Game.prototype.updated = function(){
 
   }
 
   Game.prototype.start = function(){
     console.log("开始游戏")
-    // 实例化地图
-    this.map = new Map();
-
+    this.initMap('map-B1');
     // 实例化骰子
     this.rollDice = new RollDice({"canvasId":'RollDice'});
 
