@@ -71,7 +71,6 @@
   Map.prototype.location = function(point){
     // 在当前层 直接移动过去
     if(point.floot == Game.currentLevel.floot){
-      console.log("定位当前点")
       $(this.canvas).css({"transition-duration":"2s"});
       this.move(point.X,point.Y,'location');
     }else{

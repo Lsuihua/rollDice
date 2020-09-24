@@ -70,18 +70,14 @@
 
     // 屏幕视口
     this.screen = document.querySelector('.main');
-
-    this.init();
-
-    this.loadData().then(res => {
-      this.start();
-    })
   }
 
-  Game.prototype.init = function(){
+  // 游戏初始化
+  Game.prototype.init = function(callBack){
     //获取点位信息
     // 渲染地图
-    return new Promise((resolve,reject) => {
+    this.loadData().then(res => {
+      this.start();
       if(this.floot == 'B1'){
         $('#map-B1').addClass('show')
         $('#map-B2').removeClass('show')
@@ -89,9 +85,8 @@
         $('#map-B1').removeClass('show')
         $('#map-B2').addClass('show')
       }
-      resolve(true)
+      callBack && callBack();
     })
-
   }
 
   Game.prototype.loadData = function(){
@@ -113,15 +108,16 @@
               var t = setTimeout(function(){
                 $('.open-load').addClass('animate__fadeOut')
                 $('.open-load').hide();
-              },500);
-              resolve(true);
+                resolve(true);
+              },600);
             }
           }
         }
       })
     })
   }
-  // 屏幕拖动
+
+  // 监听屏幕拖动
   Game.prototype.watchScreenDrap = function(){
     var self = this;
     var startX = startY = endX = endY = 0;
@@ -182,24 +178,33 @@
       closeDia()
     })
   }
+  // 随机数
+  Game.prototype.randomNum = function(minNum,maxNum){
+    switch(arguments.length){ 
+      case 1: 
+          return parseInt(Math.random()*minNum+1,10); 
+      break; 
+      case 2: 
+          return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10); 
+      break; 
+          default: 
+              return 0; 
+          break; 
+    }
+  }
 
   Game.prototype.initMap = function(floot){
-     // 实例化地图
-     this.map = new Map({"canvasId":floot});
+    // 实例化地图
+    this.map = new Map({"canvasId":floot});
     //  控制地图显示
     $('#'+floot).show().siblings().hide();
   }
 
-  Game.prototype.updated = function(){
-
-  }
-
   Game.prototype.start = function(){
     console.log("开始游戏")
-    this.initMap('map-B1');
+    this.initMap('map-'+ this.floot);
     // 实例化骰子
     this.rollDice = new RollDice({"canvasId":'RollDice'});
-
     this.watchScreenDrap();
   }
 })()

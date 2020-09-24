@@ -2,6 +2,18 @@
     font-family: pmzd;
     src: url("./static/PangMenZhengDaoBiaoTiTi-1.ttf");
 }
+
+/* 颜色 */
+:root{
+    --lightColor:#ffdc30;
+    --midColor:#FFC107;
+    --deepColor:#f09611;
+    --btnFontColor:#8a5609;
+
+    --lightGrey:#9E9E9E;
+    --deepGrey:#607D8B;
+}
+
 body{
     margin: 0;
     padding:0;
@@ -53,20 +65,25 @@ ul,ol{
 .open-load .progress-box .progress{
     width: 100%;
     height: 30px;
-    background: linear-gradient(to bottom, rgba(0,0,0,.5), rgba(0,0,0,.2), rgba(0,0,0,.5));
+    background:rgba(0,0,0,.1);
     position: relative;
     margin-bottom: 10px;
     border-radius: 50px;
     overflow: hidden;
+    border: 4px solid#219ef2;
+    box-shadow: 0px 0px 4px rgba(0,0,0,.8) inset;
+    box-sizing: border-box;
 }
 .open-load .progress-box .progress .value{
     position: absolute;
     width:0%;
     height: 100%;
-    background: linear-gradient(to bottom, #E91E63, #FF5722, #E91E63);
+    background: linear-gradient(to left, #2196F3, #03A9F4, #00BCD4);
     left: 0;
     top: 0;
     transition: width .3s linear;
+    box-shadow: 0px 0px 4px rgba(0,0,0,.8) inset;
+    box-sizing: border-box;
 }
 
 .open-load .progress-box .load-down-num{
@@ -136,11 +153,12 @@ ul,ol{
     font-size: 12px;
     width: 36px;
     height: 36px;
-    /* background: radial-gradient(rgba(255,255,255,.9),rgba(255,255,255,.1)); */
-    background-color: #fff;
+    background: radial-gradient(var(--lightColor),var(--midColor));
     text-align: center;
     line-height: 36px;
-    box-shadow: 0 0 4px rgba(255,255,255,.8);
+    box-shadow: 2px 2px 6px rgba(255,255,255,.8) inset;
+    border: 2px solid var(--deepColor);
+    color:var(--btnFontColor);
 }
 .attach-view>.attach-item:not(:last-child){
     margin-bottom: 12px;
@@ -157,17 +175,18 @@ ul,ol{
     width: 34px;
     height: 34px;
     border-radius: 5px;
-    border: 1px solid #adadad;
-    background: #fff;
-    color: #3f51b5;
+    border: 1px solid var(--lightColor);
+    background:rgba(0,0,0,.5);
+    color:var(--lightColor);
     text-align: center;
     box-sizing: border-box;
     line-height: 34px;
-    font-size: 18px;
+    font-size: 22px;
 }
 .zoom-control>li.disabled{
-    background:#d4d4d4;
+    background:rgba(255,255,255,.5);
     color: #777;
+    border-color: #777;
 }
 .zoom-control>li:not(:last-child){
     margin-bottom: 14px;
@@ -184,13 +203,13 @@ ul,ol{
     width: 34px;
     height: 34px;
     border-radius: 5px;
-    border: 1px solid #adadad;
-    background: #fff;
-    color: #3f51b5;
+    border: 1px solid var(--lightColor);
+    background: rgba(0,0,0,.5);
+    color: var(--lightColor);
     text-align: center;
     box-sizing: border-box;
     line-height: 34px;
-    font-size: 18px;
+    font-size: 16px;
 }
 .floot-box>.floot-content{
     margin-top: 4px;
@@ -206,13 +225,19 @@ ul,ol{
 .floot-box .floot-item {
     width: 34px;
     height: 34px;
-    border: 1px solid #adadad;
-    background: #fff;
-    color: #3f51b5;
+    border-top: 1px solid var(--lightColor);
+    border-left: 1px solid var(--lightColor);
+    border-right: 1px solid var(--lightColor);
+    background: rgba(0,0,0,.5);
+    color:var(--lightColor);
     text-align: center;
     box-sizing: border-box;
     line-height: 34px;
     font-size: 16px;
+    border-radius: 5px;
+}
+.floot-box .floot-item:last-child{
+    border-bottom: 1px solid var(--lightColor);
 }
 
 /* 摇骰子内容 */
@@ -334,10 +359,19 @@ ul,ol{
     width: 100%;
     text-align: center;
     font-size: 14px;
-    background: burlywood;
     border-radius: 20px;
-    padding:6px 10px;
-    box-shadow: 0 2px 2px rgba(0,0,0,.2);
+    padding: 6px 10px;
+    box-shadow: 0 -2px 2px rgba(0,0,0,.2) inset;
+}
+.dialog-box.confirm .footer .cc,.dialog-box.alert .footer .cc{
+    background: linear-gradient(to bottom, var(--lightGrey), var(--deepGrey));
+    border: 2px solid var(--lightGrey);
+    color: #efefef;
+}
+.dialog-box.confirm .footer .cf,.dialog-box.alert .footer .cf{
+    background: linear-gradient(to bottom, var(--lightColor), var(--deepColor));
+    border: 2px solid var(--deepColor);
+    color:var(--btnFontColor);
 }
 
 .dialog-box.confirm .footer .btn:not(:last-child){

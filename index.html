@@ -95,8 +95,8 @@
                     的骄傲还是觉得哈设计开发哈接口返回空间
                 </div>
                 <div class="footer">
-                    <div class="btn cf">确认</div>
                     <div class="btn cc">取消</div>
+                    <div class="btn cf">确认</div>
                 </div>
             </div>
             <!-- 提示 -->
@@ -124,10 +124,15 @@
             <canvas id="RollDice" class="zdog-rolldice"></canvas>
             <div class="dice-btn">投一次</div>
         </div>
-        
+
+
+        <!-- 音效 -->
+        <audio loop="loop"  defaultPlaybackRate="2"  src="./static/rollDice_bgm.mp3" class="rollDice_bgm" id="rollDice_bgm"/>
+        <audio src="./static/click.mp3" class="click_bgm" id="click_bgm"/>
     </div>
     <script src="https://unpkg.com/zdog@1/dist/zdog.dist.min.js"></script>
     <script src="https://cdn.bootcdn.net/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+    <script src="./static/js/wx_sdk.js"></script>
     <script src="./game.js"></script>
     <script src="./map.js"></script>
     <script src="./rollDice.js"></script>
@@ -141,21 +146,52 @@
         //         detail:'积分可用于夺宝大赛'
         //     }
         // })
-        
-        Game.init(res => {
-            console.log(res)
-        })
-
-        Game.dialog({
-            "type":"confirm",
-            "title":"通关提示",
-            "detail":"什么一些乱七八糟得东西提示"
-        })
+        // Game.dialog({
+        //     "type":"confirm",
+        //     "title":"通关提示",
+        //     "detail":"什么一些乱七八糟得东西提示"
+        // })
         // Game.dialog({
         //     "type":"alert",
         //     "title":"通关提示",
         //     "detail":"什么一些乱七八糟得东西提示"
         // })
+        // console.log(jWeixin)
+        // console.log(location)
+        // 游戏初始化完成 执行之后得交互
+        Game.init(function(){
+            console.log("游戏加载完成")
+            Game.dialog({
+                "type":"confirm",
+                "title":"通关提示",
+                "detail":"什么一些乱七八糟得东西提示"
+            });
+            if(location.search){
+                let params = location.search.split('?')[1];
+                var s = resetParam(params);
+                if(s.token){
+                    localStorage.setItem('token',s.token);
+                }else{
+                    // 未登录  去登陆
+                    jWeixin.miniProgram.reLaunch({url: "/pages/index?current=user&link="+ encodeURIComponent(location.href)});
+                }
+            }
+
+            var curLevel = JSON.parse(localStorage.getItem('currentLevel'));
+            if(curLevel){
+                console.log(Game)
+                Game.map.location(curLevel)
+            }
+        })
+
+        // 生成search对象
+        function resetParam(params){
+            var ps = params.split('&'),result = {};
+            for(let p of ps){
+                result[p.split('=')[0]] = p.split('=')[1];
+            }
+            return result;
+        }
     </script>
 </body>
 </html>

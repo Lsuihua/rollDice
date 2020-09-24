@@ -13,9 +13,14 @@
         self.player = null;
         self.num = param.unm || 1;
 
+        // 时间参数
+        this.timer = null;
+
         // 动画参数
         self.ticker = 0;
         self.cycleCount = 150;
+
+        self.bgm = document.getElementById('rollDice_bgm');
         
         // 点数角度参数 ====> 幅面
         self.angleArrs = {
@@ -323,21 +328,32 @@
 
     // 动画
     RollDice.prototype.animation = function(){
-        this.canvas.updateRenderGraph();
+        this.bgm.play();
         // 骰子转动
-        this.player.rotate.x += 0.01;
-        this.player.rotate.y -= 0.01;
-        requestAnimationFrame( this.animation.bind(this));
+        this.player.rotate.x += 0.4;
+        this.player.rotate.y -= 0.4;
+        this.canvas.updateRenderGraph();
+        this.timer = requestAnimationFrame( this.animation.bind(this));
     }
 
-    // 更新
-    RollDice.prototype.updated = function(){
-
+    // 出现结果
+    RollDice.prototype.diceResult = function(num,callBack){
+        var self = this,
+            _rotate =  self.angleArrs[num][Game.randomNum(0,3)];
+        self.animation();    
+        var dt = setTimeout(function(){
+            clearTimeout(dt);
+            cancelAnimationFrame(self.timer);
+            self.player.rotate.set(_rotate);
+            self.canvas.updateRenderGraph();
+            self.bgm.pause();
+            self.bgm.currentTime = 0.0;
+            callBack && callBack();
+        },1500)  
     }
 
     // 渲染
     RollDice.prototype.render = function(){
         this.draw();
-        // this.animation();
     }
 })()
