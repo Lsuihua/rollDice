@@ -19,52 +19,52 @@
     // 地图位置
 
     this.render(param);
-
   }
   
 
   // 画地图上的官咖位置
-  Map.prototype.drawLevels = function(point){
+  Map.prototype.drawLevels = function(point,k){
+    // 画圆点
     this.ctx.beginPath();
     this.ctx.fillStyle = 'red';
     this.ctx.arc(point.X,point.Y,10,0,Math.PI *2,);
     this.ctx.closePath();
     this.ctx.fill();
 
+    // 画小图标
+    if(point.icon){
+      var image = new Image;
+      image.src = point.icon;
+      // 移动坐标
+      this.ctx.save();
+      this.ctx.translate(point.X,point.Y);
+      this.ctx.drawImage(image,0,0,100,100,-50,-50,100,100);
+      this.ctx.restore();
+    }
     this.ctx.font = '20px STheiti, SimHei';
     this.ctx.textAlign = 'center';
-    this.ctx.fillText(point.name,point.X,point.Y-20)
-  }
-
-  Map.prototype.updated = function(){
-
-  }
-
-  // 地图点位切换显示  当前点 | 结束点
-  Map.prototype.transLatePoint = function(){
-    var targetX = Ganme.currentLevel.X - Game.targetLevel.X - Game.screen.clientWidth/2,
-        targetY = Ganme.currentLevel.Y - Game.targetLevel.Y - Game.screen.clientHeight/2;
-  }
-
-  // 修改楼层显示
-  Map.prototype.setFloot = function(floot){
-    if(Game.floot == floot) return;
-
+    this.ctx.fillText(point.name,point.X,point.Y-20);
   }
 
 
   Map.prototype.zoom = function(){
-    console.log(this.scale)
-    console.log(this.canvas.offsetLeft)
     // 获取当前地图屏幕中心点坐标
     var centerX = this.canvas.offsetLeft,
         centerY = this.canvas.offsetTop;
     // var centerX = this.canvas.offsetLeft + Game.screen.clientWidth/2,
     //     centerY = this.canvas.offsetTop + Game.screen.clientHeight/2;
     // console.log(centerX,centerY);
-    $(this.canvas).css({"transform" :"scale("+this.scale+")"})
+   
     // 重置地图位置
     this.move(centerX,centerY,'zoom');
+    $(this.canvas).css({"transform" :"scale("+this.scale+")"});
+
+    // 判断缩放后  canvas高度不高1.1 视口  锁定
+    if(this.canvas.height * this.scale <= $(Game.screen)[0].clientHeight * 1.1){
+      $('.zoom-down').addClass('disabled');
+    }else if(this.scale >= this.maxScale){
+      $('.zoom-up').addClass('disabled');
+    }
   }
 
   // 定位当前点位
@@ -118,14 +118,10 @@
        moveY = -maxY
     }
     $(this.canvas).css({"left":moveX,"top":moveY});
-    
-  }
-
-  Map.prototype.animated = function(){
-
   }
 
   Map.prototype.render = function(param){
+    let _levels = [];
     // 设置地图的初始大小 宽 | 高
     this.canvas.width = $(Game.R[param.canvasId])[0].width;
     this.canvas.height = $(Game.R[param.canvasId])[0].height;
@@ -133,9 +129,14 @@
     // 填充背景
     this.ctx.drawImage(Game.R[param.canvasId],0,0);
     
+    if(param.canvasId == 'map-B1'){
+      _levels = Game.levels[1];
+    }else if(param.canvasId == 'map-B2'){
+      _levels = Game.levels[0];
+    }
     // 地图上画关卡 
-    for(let item of Game.levels){
-      this.drawLevels(item)
+    for(let key in _levels){
+      this.drawLevels(_levels[key],key)
     }
 
     // 重置地图数据
@@ -151,7 +152,5 @@
       $('.zoom-up').removeClass('disabled')
       $('.zoom-down').addClass('disabled')
     }
-    // 默认显示关卡
   }
-
 })()

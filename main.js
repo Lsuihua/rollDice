@@ -6,8 +6,14 @@ $(()=>{
     // 规则开关
     anmateInOut('.attach-view .rule,.prop .close ','.prop','animate__bounceInDown','animate__bounceOutUp');
 
+    // 我的卡包
+    $('.attach-view .card').click(function(){
+        jWeixin.miniProgram.reLaunch({url: "/pages/user/coupon/index"});
+    })
+
     // 地图放大缩小
     $('.zoom-control').on('click','.zoom-up',function(){
+        if($(this).hasClass('disabled'))return;
         if(Game.map.scale >= Game.map.maxScale){
             return $(this).addClass('disabled');
         };
@@ -21,6 +27,7 @@ $(()=>{
         Game.map.zoom()
         clickBgm.play();
     }).on('click','.zoom-down',function(){
+        if($(this).hasClass('disabled'))return;
         if(Game.map.scale <= Game.map.minScale){
             return $(this).addClass('disabled')
         };
@@ -44,7 +51,7 @@ $(()=>{
         Game.floot = mapId;
         Game.initMap('map-'+mapId);
         clickBgm.play();
-    }) .on('click','.floot-show',function(){
+    }).on('click','.floot-show',function(){
         $('.floot-content').toggleClass('active');
         clickBgm.play();
     });
@@ -66,7 +73,7 @@ $(()=>{
         }
         console.log(num)
         Game.rollDice.diceResult(num,function(){
-            console.log("摇骰子结束")
+            console.log("摇骰子结束");
         })
         clickBgm.play();
     })

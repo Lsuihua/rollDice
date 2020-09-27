@@ -12,6 +12,13 @@
 
     --lightGrey:#9E9E9E;
     --deepGrey:#607D8B;
+
+    --integralDeepBg:#0059e1;
+    --integralLightBg:#007dfe;
+    --integralBorder:#46a0fe;
+
+    --couponBgDeep:#e53f07;
+    --couponBglight:#fb571e;
 }
 
 body{
@@ -36,7 +43,7 @@ ul,ol{
 
 .main{
     height: 100vh;
-    background: #f44336;
+    background: #be302e;
     width: 100%;
     overflow: hidden;
     position: relative;
@@ -99,8 +106,8 @@ ul,ol{
     padding:10px 14px;
     box-sizing: border-box;
     z-index: 9;
-    color: #fff;
-    background: linear-gradient(0deg, rgb(103 103 103 / 0), rgb(57 56 56 / 80%));
+    color:#e0d808;
+    background: linear-gradient(0deg, rgba(0,0,0,.2), rgba(0,0,0,.8));
 }
 .top-info>.left{
     text-align: left;
@@ -120,7 +127,7 @@ ul,ol{
     height: 50px;
     border-radius: 50%;
     overflow: hidden;
-    border: 2px solid #fff;
+    border: 2px solid #fff59d;
     box-sizing: border-box;
     margin-right: 6px;
 }
@@ -138,8 +145,6 @@ ul,ol{
     text-align: right;
     font-size: 14px;
 }
-
-
 
 /* 附加按钮显示 */
 .attach-view{
@@ -162,6 +167,9 @@ ul,ol{
 }
 .attach-view>.attach-item:not(:last-child){
     margin-bottom: 12px;
+}
+.attach-view .card{
+    display: none;
 }
 
 /* 放大缩小控件 */
@@ -276,9 +284,10 @@ ul,ol{
     height: 100vh;
     z-index: 10;
     display: none;
+    transition: backgroundColor .3s linear;   
 }
 .prop>.prop-box,.dialog>.dialog-box{
-    background: #fff;
+    background: radial-gradient(#ffffff 60%, #d9d9d9);
     position: absolute;
     min-height: 80px;
     max-height: 80vh;
@@ -290,7 +299,7 @@ ul,ol{
     border: 1px solid rgb(179, 179, 179);
     box-sizing: border-box;
     padding:40px 12px 12px;
-    box-shadow: 4px 6px 4px rgba(255,255,255,.3);
+    box-shadow: 4px 4px 4px rgba(255,255,255,.4);
 }
 
 .prop>.prop-box .hd{
@@ -341,6 +350,7 @@ ul,ol{
     padding:10px 10px;
     box-sizing: border-box;
     color: #575757;
+    text-align: center;
 }
 
 .dialog-box.confirm .footer,.dialog-box.alert .footer{
@@ -387,7 +397,7 @@ ul,ol{
 }
 .dialog .dialog-box.integral .content{
     text-align: center;
-    background: #0059e1;
+    background: var(--integralDeepBg);
     position: relative;
     height: 200px;
     border-radius: 20px 20px 0 0;
@@ -426,12 +436,16 @@ ul,ol{
     border-radius: 40px 0 0 0;
     bottom: 0;
 }
+.integral .content .gold{
+    width: 50%;
+    margin-bottom: 10px;
+}
 .dialog .dialog-box.integral .content .body::before{
     right: 0;
     height: 86.5%;
     content: '';
     width: 14%;
-    background:#0059e1;
+    background:var(--integralDeepBg);
     display: block;
     position: absolute;
     transform: translateX(100%);
@@ -440,20 +454,21 @@ ul,ol{
     border-radius: 0 10px 0 0;
 }
 .dialog .dialog-box.integral .content .body .title{
-    font-size: 18px;
+    font-size: 24px;
 }
 .dialog .dialog-box.integral .content .body .value{
-    font-size: 24px;
+    font-size: 32px;
     color: #FFC107;
 }
 .dialog .dialog-box.integral .content .body .spec{
     margin: 20px 0;
     color: #656565;
+    font-size: 14px;
 }
 .dialog .dialog-box.integral .footer{
     text-align: center;
-    background: #007dfe;
-    border: 4px solid #46a0fe;
+    background: var(--integralLightBg);
+    border: 4px solid var(--integralBorder);
     border-radius: 0 0 40px 40px;
     padding: 20px;
     box-sizing: border-box;
@@ -473,7 +488,7 @@ ul,ol{
     transform: translate(-50%,-60%);
 }
 .dialog .dialog-box.integral .footer::before{
-    border: 4px solid #46a0fe;
+    border: 4px solid var(--integralBorder);
     border-radius: 50%;
     transform: translate(-50%,-60%);
 }
@@ -496,15 +511,131 @@ ul,ol{
     color: #dadada;
 }
 
+/* 优惠券 */
+.dialog-box.coupon{
+    text-align: center;
+    color: #fff;
+    padding: 0;
+    box-shadow: unset;
+    background: unset;
+    border: unset;
+    
+}
+.dialog-box.coupon .body{
+    position: relative;
+    background: var(--couponBgDeep);
+    border-radius: 25px;
+}
+.dialog-box.coupon .body::before{
+    content: '';
+    display: table;
+    clear: both;
+}
+.dialog-box.coupon .body .xs{
+    position: absolute;
+    z-index: 9;
+    pointer-events: none;
+}
+.dialog-box.coupon .body .xs-top{
+    left: 0;
+    width: 30%;
+    transform: translate(-12px, -8px);
+}
 
-/* 积分 */
-.integral .ribbon{
+.dialog-box.coupon .body .xs-bt{
+    right: 0;
+    bottom: 0;
+    width: 70%;
+    transform: translate(12px, 38px);
+}
+
+.dialog-box.coupon .gold-xs{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 120%;
+    transform: translate(-8%, -35%);
+}
+
+.dialog-box.coupon .content{
+    margin: 20px 20px 0 20px;
+    background: #fbd4ac;
+    padding: 20px 20px 0 20px;
+    position: relative;
+    color: var(--couponBgDeep);
+}
+.dialog-box.coupon .content::before{
+    content: '';
+    display: block;
     position: absolute;
     width: 100%;
+    height: 20px;
+    top: -10px;
+    left: 0;
+    background: radial-gradient( transparent 10px, transparent 10px, var(--couponBgDeep) 10px, var(--couponBgDeep));
+    background-size: 20px 20px;
+    background-position: -12px -12px;
 }
-.integral .content .gold{
-    width: 50%;
-    margin-bottom: 20px;
+.dialog-box.coupon .content .cp{
+    background: #fff;
+    border-radius: 5px;
+    border:1px solid #e2ad75;
+    padding: 10px 10px 15px 10px;
+    box-sizing: border-box;
+}
+.dialog-box.coupon .content .cp .contain{
+    padding-bottom: 10px;
+    border-bottom: 1px dashed  #e2ad75;
+}
+.dialog-box.coupon .content .cp .contain .title{
+    font-size: 26px;
+}
+.dialog-box.coupon .content .cp .spec{
+    margin-top: 10px;
+}
+.dialog-box.coupon .footer{
+    background: var(--couponBglight);
+    position: relative;
+    padding: 20px;
+    border-radius: 0 0 25px 25px;
+}
+.dialog-box.coupon .footer::before,.dialog-box.coupon .footer::after{
+    height: 50px;
+    content: '';
+    display: block;
+    background: var(--couponBglight);
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    transform: translateY(-50%);
+}
+.dialog-box.coupon .footer::before{
+    clip-path: polygon(0 0,100% 50px, 0 50px,0 0);
+}
+.dialog-box.coupon .footer::after{
+    clip-path: polygon(0 50px,100% 0 ,100% 50px,0 50px);
+}
+.dialog-box.coupon .footer .title{
+    font-size: 24px;
+    position: relative;
+    z-index: 9;
+    text-shadow: 2px 2px 2px #b43105;
+}
+.dialog-box.coupon .footer .date{
+    font-size: 14px;
+    margin:10px 0;
+    display: block;
+    color: #f7c882;
+}
+.dialog-box.coupon .footer .submit{
+    background:linear-gradient(to bottom,#ffffff, #fdd9b0) ;
+    color: var(--couponBglight);
+    border-radius: 30px;
+    padding:10px;
+    box-sizing: border-box;
+    font-size: 16px;
+    box-shadow: 0 2px 2px rgba(0,0,0,.3);
 }
 
 /* 地图区域 */
