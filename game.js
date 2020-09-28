@@ -14,55 +14,19 @@
      * 判断用户是否登录
      * 小程序跳转
      */
-    this.integral = 0;
 
     this.ready = false;
     this.R = {};
     this.loadDownNumber = 0;
     //游戏关卡
-    this.levels = [
-      {
-        "name":"关卡一",
-        "key":1,
-        "X":200,
-        "Y":200,
-        "floot":'b1'
-      },
-      {
-        "name":"关卡2",
-        "key":2,
-        "X":100,
-        "Y":800,
-        "floot":'b1'
-      },
-      {
-        "name":"关卡3",
-        "key":3,
-        "X":1000,
-        "Y":800,
-        "floot":'b1'
-      },
-      {
-        "name":"关卡4",
-        "key":4,
-        "X":1800,
-        "Y":1800,
-        "floot":'b1'
-      },
-      {
-        "name":"关卡5",
-        "key":5,
-        "X":1000,
-        "Y":1200,
-        "floot":'b1'
-      }
-    ],
+    this.levels = [],
     // 关卡路径
     this.levelsPath = [];
 
+    this.playerInfo = {};
     // 当前关卡 | 目标关卡
-    this.currentLevel = this.levels[0];
-    this.targetLevel = this.levels[4];
+    this.currentLevel ={};
+    this.targetLevel = {};
 
     // 游戏步数
     this.steps = 0;
@@ -75,6 +39,11 @@
   // 游戏初始化
   Game.prototype.init = function(callBack){
     //获取点位信息
+    Zepto.getJSON('//wbt.zflb.cc/mp/youyuan2020/game/init',res =>{
+      if(res.code === 1){
+        this.levels = res.body;
+      }
+    });
     // 渲染地图
     this.loadData().then(res => {
       this.start();
@@ -101,7 +70,7 @@
             self.loadDownNumber ++;
             // 更改进度条
             $('.open-load .value').css({"width":self.loadDownNumber / r.images.length * 100 +'%'});
-            $('.open-load .load-down-num').html(`正在加载资源 ${self.loadDownNumber}/${r.images.length} 请稍后...`)
+            $('.open-load .load-down-num').html(`正在加载资源 ${self.loadDownNumber}/${r.images.length} 请稍后...`);
             // 加载完成
             if(self.loadDownNumber == r.images.length){
               self.ready = true;
@@ -141,42 +110,53 @@
 
 
   // 弹窗
-  Game.prototype.dialog = function(data){
-    const self = this;
-    const closeDia = function(){
+  Game.prototype.dialog = function(data,callBack){
+    const self = this,
+    closeDia = function(){
+      $('.dialog').css({"background":"rgba(0,0,0,0)"});
       $('.dialog').removeClass('animate__zoomIn').addClass('animate__zoomOut')
       var gt = setTimeout(function(){
-        $('.dialog').css({"display":"none"})
+        $('.dialog').css({"display":"none"});
       },300)
     };
+    // 重启弹窗 
+    if($('.dialog').hasClass('animate__zoomOut')){
+      $('.dialog').removeClass('animate__zoomOut');
+    }
     $('.dialog').css({"display":"block"}).addClass('animate__zoomIn');
     $('.dialog .'+data.type).show().siblings().hide();
-    // 积分类型
+    // 遮罩
+    var bt = setTimeout(function(){
+      $('.dialog').css({"background":"rgba(0,0,0,.5)"});
+      clearTimeout(bt);
+    },1000);
+      // 积分类型
     if(data.type == 'integral'){  
-      $('.content .title .value').html(data.data.integral);
-      $('.content .spec').html(data.data.detail);
+      document.getElementById('prize_bgm').play();
+      $('.integral .content .title .value').html(data.data.integral);
+      $('.integral .content .title .text').html(data.data.title);
+      $('.integral .content .spec').html(data.data.detail);
     }else if(data.type == 'confirm' || data.type == 'alert'){
       $('.dialog-box .hd').html(data.title);
-      $('.dialog-box .content').html(data.detail);
-      $('.dialog').on('click','.cf',function(){
-        console.log("去做什么 ==>  关闭弹窗")
-        // 去下一关
-        self.map.location(self.targetLevel);
-        // 获取积分
-        closeDia();
-      })
-    }else if(data.type == 'alert'){
-      $('.dialog').on('click','.cf',function(){
-        console.log("去做什么 ==>  关闭弹窗")
-        // 去登陆
-        closeDia();
-      })
+      $('.dialog-box.alert .content,.dialog-box.confirm .content').html(data.detail);
+      // 优惠券
+    }else if(data.type == 'coupon'){
+      $('.coupon .cp .title').html(data.content.data[0].full_name);
+      $('.coupon .cp .spec').html(data.content.data[0].remark);
+      $('.coupon .footer .title').html(data.title);
+      $('.coupon .footer .date').html(data.content.data[0].valid_tip);
     }
-
     // 关闭
-    $('.dialog').on('click','.close,.submit,.cc',function(){
-      closeDia()
+    $('.dialog').on('click','.close,.cc',function(){
+      closeDia();
     })
+    $('.dialog').on('click','.cf',function(){
+      closeDia();
+      callBack && callBack(data.type);
+    });
+    $('.dialog').on('click','.submit',function(){
+      closeDia();
+    });
   }
   // 随机数
   Game.prototype.randomNum = function(minNum,maxNum){
@@ -201,7 +181,7 @@
   }
 
   Game.prototype.start = function(){
-    console.log("开始游戏")
+    console.log("开始游戏");
     this.initMap('map-'+ this.floot);
     // 实例化骰子
     this.rollDice = new RollDice({"canvasId":'RollDice'});

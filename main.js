@@ -18,13 +18,13 @@ $(()=>{
             return $(this).addClass('disabled');
         };
         if($(this).hasClass('disabled')){
-            $(this).removeClass('disabled')
+            $(this).removeClass('disabled');
         }
         if($('.zoom-down').hasClass('disabled')){
-            $('.zoom-down').removeClass('disabled')
+            $('.zoom-down').removeClass('disabled');
         }
         Game.map.scale += 0.1;
-        Game.map.zoom()
+        Game.map.zoom();
         clickBgm.play();
     }).on('click','.zoom-down',function(){
         if($(this).hasClass('disabled'))return;
@@ -74,7 +74,7 @@ $(()=>{
         console.log(num)
         Game.rollDice.diceResult(num,function(){
             console.log("摇骰子结束");
-        })
+        });
         clickBgm.play();
     })
 
