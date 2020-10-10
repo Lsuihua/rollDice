@@ -2,6 +2,7 @@
   "images":[
       {"name":"map-B1","url":"./static/imgs/B1.jpg"},
       {"name":"map-B2","url":"./static/imgs/B2.jpg"},
-      {"name":"point_icon","url":"./static/imgs/point_icon.png"}
+      {"name":"point_active","url":"./static/imgs/point_active.png"},
+      {"name":"point","url":"./static/imgs/point.png"}
   ]
 }

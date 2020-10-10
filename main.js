@@ -3,58 +3,6 @@ $(()=>{
     // 骰子开关按钮
     anmateInOut('.attach-view .dice','.dice-box','animate__zoomInDown','animate__zoomOut');
 
-    // 规则开关
-    anmateInOut('.attach-view .rule,.prop .close ','.prop','animate__bounceInDown','animate__bounceOutUp');
-
-    // 我的卡包
-    $('.attach-view .card').click(function(){
-        jWeixin.miniProgram.reLaunch({url: "/pages/user/coupon/index"});
-    })
-
-    // 地图放大缩小
-    $('.zoom-control').on('click','.zoom-up',function(){
-        if($(this).hasClass('disabled'))return;
-        if(Game.map.scale >= Game.map.maxScale){
-            return $(this).addClass('disabled');
-        };
-        if($(this).hasClass('disabled')){
-            $(this).removeClass('disabled');
-        }
-        if($('.zoom-down').hasClass('disabled')){
-            $('.zoom-down').removeClass('disabled');
-        }
-        Game.map.scale += 0.1;
-        Game.map.zoom();
-        clickBgm.play();
-    }).on('click','.zoom-down',function(){
-        if($(this).hasClass('disabled'))return;
-        if(Game.map.scale <= Game.map.minScale){
-            return $(this).addClass('disabled')
-        };
-        if($(this).hasClass('disabled')){
-            $(this).removeClass('disabled')
-        }
-        if($('.zoom-up').hasClass('disabled')){
-            $('.zoom-up').removeClass('disabled')
-        }
-        Game.map.scale -= 0.1;
-        Game.map.zoom();
-        clickBgm.play();
-    })
-
-    //楼层切换
-    $('.floot-box').on('click','.floot-item',function(){
-        let mapId = $(this)[0].innerHTML;
-        $('.floot-content').toggleClass('active');
-        $('.floot-show').html(mapId);
-        // 地图切换
-        Game.floot = mapId;
-        Game.initMap('map-'+mapId);
-        clickBgm.play();
-    }).on('click','.floot-show',function(){
-        $('.floot-content').toggleClass('active');
-        clickBgm.play();
-    });
 
     $('.dice-btn').click(function(){
         console.log("摇骰子")

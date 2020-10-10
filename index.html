@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>掷骰子</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
+    <title>摇骰子</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="./style.css">
 </head>
@@ -11,131 +11,23 @@
     <div class="main">
         <!-- 加载资源动画 -->
         <div class="open-load animate__animated">
-            <div class="banner"></div>
-            <div class="progress-box">
-                <div class="progress">
-                    <div class="value"></div>
+            <div class="content">
+                <div class="banner">
+                    <img src="./static/imgs/load_banner.png">
                 </div>
-                <!-- 加载数量提示 -->
-                <div class="load-down-num">加载中...</div>
-            </div>
-        </div>
-
-        <!-- 头部用户信息 -->
-        <div class="top-info">
-            <!-- left -->
-            <div class="left">
-                <div class="user left-item">
-                    <img src="./static/imgs/logo.jpg" class="logo">
-                    <div class="user-info">
-                        <div class="name left-item text-cut">我爱吃辣条啊</div>
-                        <div class="integral left-item text-cut">积分：80</div>
+                <div class="progress-box">
+                    <div class="progress">
+                        <div class="value"></div>
                     </div>
+                    <!-- 加载数量提示 -->
+                    <div class="load-down-num">加载中...</div>
                 </div>
-            </div>
-            <!-- right -->
-            <div class="right">
-                <div class="right-item cur-level">当前位置：<span class="value">XXX关卡</span> </div>
-                <div class="right-item next-level">下个位置：<span class="value">XXX关卡</span></div>
             </div>
         </div>
         <!-- 附加显示 -->
         <ol class="attach-view">
-            <li class="rule attach-item">规则</li>
             <li class="dice attach-item">骰子</li>
-            <li class="card attach-item">卡包</li>
         </ol>
-        
-        <!-- 底部控件 -->
-        <ol class="zoom-control">
-            <li class="zoom-up">+</li>
-            <li class="zoom-down">-</li>
-        </ol>
-
-        <!-- 当前楼层 -->
-        <div class="floot-box">
-            <div class="floot-show">B1</div>
-            <ol class="floot-content">
-                <li class="floot-item">B1</li>
-                <li class="floot-item">B2</li>
-            </ol>
-        </div>
-
-        <!-- 规则 -->
-        <div class="prop animate__animated">
-            <div class="prop-box">
-                <div class="hd">弹窗标题</div>
-                <div class="content">
-                    打瞌睡的金卡角度看拉家带口洒家打开拉萨
-                </div>
-                <span class="close">×</span>
-            </div>
-        </div>
-
-        <!-- 弹窗 -->
-        <div class="dialog animate__animated">
-            <!-- 积分 -->
-            <div class="dialog-box integral">
-                <div class="content">
-                    <div class="body">
-                        <img class="gold" src="./static/imgs/gold.png">
-                        <div class="title"><span class="text">任务达成</span> +<span class="value">20</span> 积分</div>
-                        <div class="spec">积分可用于夺宝大赛</div>
-                    </div>
-                </div>
-                <div class="footer">
-                    <div class="btn submit">知道了</div>
-                </div>
-            </div> 
-            <!-- 优惠券 -->
-            <div class="dialog-box coupon">
-                <img class="gold-xs xs" src="./static/imgs/gold_bg.png">
-                <div class="body">
-                    <img class="xs-top xs" src="./static/imgs/coupon_xs.png">
-                    <img class="xs-bt xs" src="./static/imgs/coupon_xs2.png">
-                    <div class="content">
-                        <div class="cp">
-                            <div class="contain">
-                                <div class="title"></div>
-                            </div>
-                            <div class="spec">满499元，领取</div>
-                        </div>
-                    </div>
-                    <div class="footer">
-                        <div class="title">恭喜您获得优惠券</div>
-                        <span class="date">积分可在我的积分中查看</span>
-                        <div class="btn submit">确定</div>
-                    </div>
-                </div>
-
-            </div>
-            <!-- 确认提示 -->
-            <div class="dialog-box confirm">
-                <div class="hd">系统提示</div>
-                <span class="close">×</span>
-                <div class="content"></div>
-                <div class="footer">
-                    <div class="btn cc">取消</div>
-                    <div class="btn cf">确认</div>
-                </div>
-            </div>
-            <!-- 提示 -->
-            <div class="dialog-box alert">
-                <div class="hd">系统提示</div>
-                <span class="close">×</span>
-                <div class="content"></div>
-                <div class="footer">
-                    <div class="btn cf">确认</div>
-                </div>
-            </div>
-            
-        </div>
-
-        <!-- 地图内容 -->
-        <div class="map-box">
-            <canvas class="map" id="map-B2"></canvas>
-            <canvas class="map" id="map-B1"></canvas>
-        </div>
 
         <!-- 骰子内容 -->
         <div class="dice-box animate__animated">
@@ -151,165 +43,18 @@
     </div>
     <script src="https://unpkg.com/zdog@1/dist/zdog.dist.min.js"></script>
     <script src="//s.zflb.cn/public/libs/zepto/zepto.min.js"></script>
-    <script src="//s.zflb.cn/public/libs/zflb/util.js"></script>
-    <script src="./static/js/wx_sdk.js"></script>
     <script src="./game.js"></script>
-    <script src="./map.js"></script>
     <script src="./rollDice.js"></script>
     <script src="./main.js"></script>
+    
     <script>
         window.weui = {}
         var Game = new Game();
-        // Game.dialog({
-        //     "type":"integral",
-        //     "data":{
-        //         integral:20,
-        //         detail:'积分可用于夺宝大赛'
-        //     }
-        // })
-        // Game.dialog({
-        //     "type":"confirm",
-        //     "title":"通关提示",
-        //     "detail":"什么一些乱七八糟得东西提示"
-        // })
-        // Game.dialog({
-        //     "type":"coupon",
-        //     "title":"优惠券",
-        //     "detail":"什么一些乱七八糟得东西提示"
-        // })
-        // Game.dialog({
-        //     "type":"alert",
-        //     "title":"通关提示",
-        //     "detail":"什么一些乱七八糟得东西提示"
-        // })
-        // console.log(jWeixin)
-        // console.log(location)
-        // 游戏初始化完成 执行之后得交互
-        console.log($(Game.screen)[0].clientHeight)
-        let params = null,
-            s = null;
+        let params = null, s = null;
         if(location.search){
             params = location.search.split('?')[1];
             s = resetParam(params);
         }
-        var url = '//wbt.zflb.cc/mp/youyuan2020/game/play',
-            poi = (s && s.poi) || -1,
-            // token ='21a3C3lpdtIo3iYkrVrj4aYs5JUXJm4jFiUjRfK6T%2BkUpwjbUqzjQfcawUymBcr%2FdN4Oin6%2FO5%2FccdDAGc3IFCUHCp9DsfA';
-            token = encodeURIComponent(s && s.token);
-        if(token && token != 'null'){
-            $('.attach-view .card').show()
-        }
-        Game.init(function(){
-            $('.top-info').hide();
-            var curLevel = JSON.parse(localStorage.getItem('currentLevel'));
-            if(curLevel){
-                Game.map.location(curLevel)
-            }
-            // 发请求
-            Zepto.getJSON(`${url}?poi=${poi}&token=${token}`,res =>{
-                console.log(res)
-                if(res.body.code == 99){
-                    Game.dialog({
-                        "type":"alert",
-                        "title":res.body.title,
-                        "detail":res.body.remark
-                    },function(){
-                        console.log("去登陆")
-                        // 未登录  去登陆
-                        jWeixin.miniProgram.reLaunch({url: "/pages/index?current=user&link="+ encodeURIComponent(location.href)});
-                    });
-                }else if(res.body.code == 102 || res.body.code == 103){
-                   Game.dialog({
-                        "type":"confirm",
-                        "title":res.body.title,
-                        "detail":res.body.remark
-                    },function(rs1){
-                        console.log("接收到回调===>"+rs1)
-                        Zepto.getJSON(`${url}?poi=${poi}&token=${token}&confirm=1`,r =>{
-                        // console.log(r)
-                            if(r.body.code == 104){
-                                // 普通参与
-                                var qt = setTimeout(() => {
-                                    Game.dialog({
-                                        "type":"integral",
-                                        "data":{
-                                            "integral":r.body.point,
-                                            "detail":r.body.remark
-                                        }
-                                    });
-                                    // 更新信息
-                                    updateTopInfo(r.body);
-                                    clearTimeout(qt);
-                                },300);
-                            }else if(r.body.code == 105){
-                                // 通关赛参与
-                                Game.map.location(r.body.ngame)
-                            }else if(r.body.code == 110){
-                                // 通关赛参与
-                                Game.map.location(r.body.ngame)
-                            }
-                        })
-                    })
-                }else if(res.body.code === 100){
-                    Game.dialog({
-                        "type":"alert",
-                        "title":res.body.title,
-                        "detail":res.body.remark
-                    })
-                }else if(res.body.code == 105){
-                    // 通关赛参与
-                    Game.map.location(r.body.ngame)
-                }else if(res.body.code == 110){
-                    // 通关赛参与
-                    Game.dialog({
-                        "type":"integral",
-                        "data":{
-                            "integral":r.body.point,
-                            "detail":r.body.remark
-                        }
-                    })
-                }else if(res.body.code == 101 && res.body.coupon){
-                    // 通关赛参与
-                    Game.dialog({
-                        "type":"coupon",
-                        "title":res.body.title,
-                        "content":res.body.coupon
-                    })
-                }
-                console.log("更新数据")
-                // 更新信息
-                updateTopInfo(res.body);
-            })
-        })
-
-        // 更新头部数据
-        function updateTopInfo(data){
-            var _html = `
-                <div class="user left-item">
-                <img src="${data.user.avatar}" class="logo">
-                <div class="user-info">
-                    <div class="name left-item text-cut">${data.user.nickname}</div>
-                    <div class="integral left-item text-cut">积分：${data.user.point1}</div>
-                </div>
-            </div>`;
-            if(data.user.avatar){
-                $('.top-info').show();
-                $('.top-info .left').html(_html);
-            }else{
-                $('.top-info').hide();
-            }
-            if(data.cgame){
-                $('.top-info .right .cur-level .value').html(data.cgame.po_name);
-            }else{
-                $('.top-info .right .cur-level').hide();
-            }
-            if(data.ngame){
-                $('.top-info .right .next-level .value').html(data.ngame.po_name);
-            }else{
-                $('.top-info .right .next-level').hide();
-            }
-        }
-
         // 生成search对象
         function resetParam(params){
             var ps = params.split('&'),result = {};

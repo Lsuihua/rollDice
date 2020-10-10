@@ -77,14 +77,6 @@
         // this.canvas.style.backgroundColor = this.colors[0];
     }
 
-    // 加载资源
-    RollDice.prototype.loadResources = function(){
-        return new Promise((resolve,reject) => {
-            resolve();
-            // reject();
-        });
-    }
-
     RollDice.prototype.install = function(){
         this.draw();
     };
