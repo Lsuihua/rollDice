@@ -1,2 +1,2 @@
 # 摇骰子
-![Image text](https://github.com/Lsuihua/lottery/blob/master/imgs/lottery.png)
+![Image text](https://github.com/Lsuihua/rollDice/blob/master/static/imgs/rolldice.png)
