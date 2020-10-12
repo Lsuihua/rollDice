@@ -63,9 +63,7 @@
         };
 
         self.init();
-        self.loadResources().then(res => {
-            self.render();
-        })
+        self.render();
     }
 
     // 初始化配置

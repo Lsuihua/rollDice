@@ -24,10 +24,6 @@
                 </div>
             </div>
         </div>
-        <!-- 附加显示 -->
-        <ol class="attach-view">
-            <li class="dice attach-item">骰子</li>
-        </ol>
 
         <!-- 骰子内容 -->
         <div class="dice-box animate__animated">
@@ -51,6 +47,7 @@
         window.weui = {}
         var Game = new Game();
         let params = null, s = null;
+        Game.start();
         if(location.search){
             params = location.search.split('?')[1];
             s = resetParam(params);
